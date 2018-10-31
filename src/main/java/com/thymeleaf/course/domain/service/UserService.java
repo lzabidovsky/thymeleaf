@@ -1,6 +1,7 @@
 package com.thymeleaf.course.domain.service;
 
 import com.thymeleaf.course.domain.model.dto.UserSignUpRequest;
+import com.thymeleaf.course.domain.model.entity.User;
 import com.thymeleaf.course.domain.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +21,11 @@ public class UserService {
     	if( userRepository.isSignUp(request.getEmail()) ) {
     		throw new UnsupportedOperationException("User already sign up");
     	}
-    	userRepository.save(request);
+		User user = new User();
+		user.setFirstName(request.getFirstName());
+		user.setLastName(request.getLastName());
+		user.setEmail(request.getEmail());
+		user.setPassword(request.getPassword());
+    	userRepository.save(user);
     }
 }
